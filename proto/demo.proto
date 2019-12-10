@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+package proto;
+
+// ------------------- Base -------------------
+
+message Meta {
+  MetaPage page = 1;
+}
+  
+message MetaPage {
+  int32 total = 1;
+  int32 current = 2;
+  int32 prev = 3;
+  int32 next = 4;
+}
+
+message Error {
+  int32 code = 1;
+  string message = 2;
+}
+
+message Empty {}
+
+// ------------------- Users -------------------
+
+service UserService {
+	rpc UserGet(UserGetRequest) returns (UserGetResponse) {}
+	rpc UserGetByEmail(UserGetByEmailRequest) returns (UserGetByEmailResponse) {}
+  rpc UserCreate(UserCreateRequest) returns (UserCreateResponse) {}
+	rpc UserVerifyPassword(UserVerifyPasswordRequest) returns (UserVerifyPasswordResponse)  {}
+
+  // TODO(ca): below methods are not implemented.
+  // rpc List(ListRequest) returns (ListResponse) {}
+  // rpc Update(UpdateRequest) returns (UpdateResponse) {}
+  // rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+
+message User {
+	string id = 1;
+	string email = 2;
+	string name = 3;
+	string password = 4;
+
+	int64 created_at = 5;
+	int64 updated_at = 6;
+}
+
+message UserGetRequest {
+	string user_id = 1;
+}
+
+message UserGetResponse {
+  User data = 1;
+  Meta meta = 2;
+  Error error = 3;
+}
+
+message UserGetByEmailRequest {
+	string email = 1;
+}
+
+message UserGetByEmailResponse {
+  User data = 1;
+  Meta meta = 2;
+  Error error = 3;
+}
+
+message UserCreateRequest {
+  User data = 1;
+}
+
+message UserCreateResponse {
+  User data = 1;
+  Meta meta = 2;
+  Error error = 3;
+}
+
+message UserVerifyPasswordRequest {
+	string email = 1;
+	string password = 2;
+}
+
+message UserVerifyPasswordResponse {
+  bool valid = 1;
+  Meta meta = 2;
+  Error error = 3;
+}
