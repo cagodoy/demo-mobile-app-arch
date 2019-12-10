@@ -1,3 +1,7 @@
+#
+# Internal variables
+#
+BIN_PATH=$(PWD)/bin
 NODE_MODULES_PATH=$(HOME)/.nvm/versions/node/v11.15.0/lib/node_modules
 PROTOC_GEN_TS_PATH=$(NODE_MODULES_PATH)/ts-protoc-gen/bin/protoc-gen-ts
 PROTOC_GEN_GRPC_PATH="./node_modules/.bin/grpc_tools_node_protoc_plugin"
@@ -14,6 +18,8 @@ proto p: clean-proto
 	@mv proto/*.pb.go proto/go
 	@protoc --plugin="protoc-gen-ts=${PROTOC_GEN_TS_PATH}" --js_out="import_style=commonjs,binary:." --ts_out="." ./proto/demo.proto
 	@mv proto/*.js proto/*.ts proto/ts
-	
 
-.PHONY: clean-proto cp proto p
+wait-db wd:
+	@cd cmd/wait-db && GOOS=linux GOARCH=amd64 go build -o $(BIN_PATH)/wait-db 
+	
+.PHONY: clean-proto cp proto p wait-db wd
