@@ -29,9 +29,11 @@ service UserService {
 	rpc UserGetByEmail(UserGetByEmailRequest) returns (UserGetByEmailResponse) {}
   rpc UserCreate(UserCreateRequest) returns (UserCreateResponse) {}
 	rpc UserVerifyPassword(UserVerifyPasswordRequest) returns (UserVerifyPasswordResponse)  {}
+  rpc List(UserListRequest) returns (UserListResponse) {}
 
+  //
   // TODO(ca): below methods are not implemented.
-  // rpc List(ListRequest) returns (ListResponse) {}
+  //
   // rpc Update(UpdateRequest) returns (UpdateResponse) {}
   // rpc Delete(DeleteRequest) returns (DeleteResponse) {}
 }
@@ -83,6 +85,85 @@ message UserVerifyPasswordRequest {
 
 message UserVerifyPasswordResponse {
   bool valid = 1;
-  Meta meta = 2;
+  Error error = 2;
+}
+
+message UserListRequest {}
+
+message UserListResponse {
+  repeated User data = 1;
+  Error error = 2;
+}
+
+// ------------------- Auth -------------------
+
+service AuthService {
+  rpc VerifyToken (AuthVerifyTokenRequest) returns (AuthVerifyTokenResponse) {}
+  rpc Login (AuthLoginRequest) returns (AuthLoginResponse) {}
+  rpc SignUp (AuthSignupRequest) returns (AuthSignupResponse) {}
+
+  //
+  // TODO(ca): below methods are not implemented.
+  //
+  // rpc Logout (AuthLogoutRequest) returns (AuthLogoutResponse) {}
+  // rpc ForgotPassword (AuthForgotPasswordRequest) returns (AuthForgotPasswordResponse) {}
+  // rpc RecoverPassword (AuthRecoverPasswordRequest) returns (AuthRecoverPasswordResponse) {}
+}
+
+message Token {
+  string token = 1;
+}
+
+message AuthVerifyTokenRequest {
+  string token = 1;
+}
+
+message AuthVerifyTokenResponse {
+  bool valid = 1;
+  Error error = 2;
+}
+
+message AuthLoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message AuthLoginResponse {
+  User data = 1;
+  Token meta = 2;
   Error error = 3;
+}
+
+message AuthSignupRequest {
+  User user = 1;
+}
+
+message AuthSignupResponse {
+  User data = 1;
+  Token meta = 2;
+  Error error = 3;
+}
+
+message AuthLogoutRequest {
+  string token = 1;
+}
+
+message AuthLogoutResponse {
+  Error error = 1;
+}
+
+message AuthForgotPasswordRequest {
+  string email = 1;
+}
+
+message AuthForgotPasswordResponse {
+  Error error = 1;
+}
+
+message AuthRecoverPasswordRequest {
+  string password = 1;
+}
+
+message AuthRecoverPasswordResponse {
+  Error error = 1;
 }
