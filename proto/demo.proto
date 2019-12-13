@@ -29,7 +29,7 @@ service UserService {
 	rpc UserGetByEmail(UserGetByEmailRequest) returns (UserGetByEmailResponse) {}
   rpc UserCreate(UserCreateRequest) returns (UserCreateResponse) {}
 	rpc UserVerifyPassword(UserVerifyPasswordRequest) returns (UserVerifyPasswordResponse)  {}
-  rpc List(UserListRequest) returns (UserListResponse) {}
+  rpc UserList(UserListRequest) returns (UserListResponse) {}
 
   //
   // TODO(ca): below methods are not implemented.
