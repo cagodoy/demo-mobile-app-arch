@@ -29,7 +29,7 @@ service UserService {
 	rpc UserGetByEmail(UserGetByEmailRequest) returns (UserGetByEmailResponse) {}
   rpc UserCreate(UserCreateRequest) returns (UserCreateResponse) {}
 	rpc UserVerifyPassword(UserVerifyPasswordRequest) returns (UserVerifyPasswordResponse)  {}
-  rpc UserSelect(UserSelectRequest) returns (UserSelectResponse) {}
+  rpc UserList(UserListRequest) returns (UserListResponse) {}
 
   //
   // TODO(ca): below methods are not implemented.
@@ -88,9 +88,9 @@ message UserVerifyPasswordResponse {
   Error error = 2;
 }
 
-message UserSelectRequest {}
+message UserListRequest {}
 
-message UserSelectResponse {
+message UserListResponse {
   repeated User data = 1;
   Meta meta = 2;
   Error error = 3;
