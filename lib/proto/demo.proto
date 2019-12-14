@@ -23,8 +23,8 @@ message Error {
 message Empty {}
 
 message Coord {
-  int64 latitude = 1;
-  int64 longitude = 2;
+  string latitude = 1;
+  string longitude = 2;
 }
 
 // ------------------- Users -------------------
