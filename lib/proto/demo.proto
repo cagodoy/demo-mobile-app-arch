@@ -183,7 +183,7 @@ service RestaurantService {
 message Restaurant {
   string id = 1;
   string name = 2;
-  int32 rating = 3;
+  string rating = 3;
   string address = 4;
   bool open = 5;
   string photo_reference = 6;
