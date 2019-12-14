@@ -23,8 +23,8 @@ message Error {
 message Empty {}
 
 message Coord {
-  string latitude = 1;
-  string longitude = 2;
+  int64 latitude = 1;
+  int64 longitude = 2;
 }
 
 // ------------------- Users -------------------
@@ -183,14 +183,11 @@ service RestaurantService {
 message Restaurant {
   string id = 1;
   string name = 2;
-  string ranking = 3;
+  int32 rating = 3;
   string address = 4;
-  string location = 5;
-  string website = 6;
-  string phone = 7;
-  string image_url = 8;
-  string schedules = 9;
-  Coord coord = 10;
+  bool open = 5;
+  string photo_reference = 6;
+  Coord coord = 7;
 }
 
 message RestaurantListByCoordRequest {
