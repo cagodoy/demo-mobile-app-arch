@@ -1,3 +1,6 @@
 [submodule "src/users-api"]
 	path = src/users-api
 	url = https://github.com/cagodoy/tenpo-users-api
+[submodule "src/auth-api"]
+	path = src/auth-api
+	url = https://github.com/cagodoy/tenpo-auth-api

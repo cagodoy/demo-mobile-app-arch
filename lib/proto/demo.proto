@@ -22,6 +22,11 @@ message Error {
 
 message Empty {}
 
+message Coord {
+  string latitude = 1;
+  string longitude = 2;
+}
+
 // ------------------- Users -------------------
 
 service UserService {
@@ -167,4 +172,54 @@ message AuthRecoverPasswordRequest {
 
 message AuthRecoverPasswordResponse {
   Error error = 1;
+}
+
+// ------------------- Restaurants -------------------
+
+service RestaurantService {
+  rpc ListByCoord(RestaurantListByCoordRequest) returns (RestaurantListByCoordResponse) {}
+}
+
+message Restaurant {
+  string id = 1;
+  string name = 2;
+  string ranking = 3;
+  string address = 4;
+  string location = 5;
+  string website = 6;
+  string phone = 7;
+  string image_url = 8;
+  string schedules = 9;
+  Coord coord = 10;
+}
+
+message RestaurantListByCoordRequest {
+  Coord coord = 1;
+}
+
+message RestaurantListByCoordResponse {
+  repeated Restaurant data = 1;
+  Meta meta = 2;
+  Error error = 3;
+}
+
+// ------------------- History ------------------- 
+
+service SearchHistory {
+  rpc SearchHistoryList(SearchHistoryRequest) returns (SearchHistoryResponse) {}
+}
+
+message History {
+  int64 created_at = 1;
+	int64 updated_at = 2;
+}
+
+message SearchHistoryRequest {
+  Coord coord = 1;
+} 
+
+message SearchHistoryResponse {
+  repeated History data = 1;
+  Meta meta = 2;
+  Error error = 3;
 }
