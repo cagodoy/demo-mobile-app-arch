@@ -4,16 +4,7 @@ package proto;
 
 // ------------------- Base -------------------
 
-message Meta {
-  MetaPage page = 1;
-}
-  
-message MetaPage {
-  int32 total = 1;
-  int32 current = 2;
-  int32 prev = 3;
-  int32 next = 4;
-}
+message Meta {}
 
 message Error {
   int32 code = 1;
@@ -192,11 +183,16 @@ message Restaurant {
 
 message RestaurantListByCoordRequest {
   Coord coord = 1;
+  string page_token = 2;
+}
+
+message MetaRestaurantListByCoord {
+  string page_token = 1;
 }
 
 message RestaurantListByCoordResponse {
   repeated Restaurant data = 1;
-  Meta meta = 2;
+  MetaRestaurantListByCoord meta = 2;
   Error error = 3;
 }
 
