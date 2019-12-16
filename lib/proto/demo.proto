@@ -203,12 +203,13 @@ service HistoryService {
 }
 
 message History {
-  string user_id = 1;
-  string latitude = 2;
-  string longitude = 3;
+  string id = 1;
+  string user_id = 2;
+  string latitude = 3;
+  string longitude = 4;
 
-  int64 created_at = 4;
-	int64 updated_at = 5;
+  int64 created_at = 5;
+	int64 updated_at = 6;
 }
 
 message HistoryListByUserIdRequest {
