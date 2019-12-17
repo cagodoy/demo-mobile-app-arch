@@ -2,6 +2,10 @@ LOCAL_HOST=0.0.0.0
 USERS_PORT=5020
 AUTH_PORT=5010
 
+prepare pre:
+	@echo "[prepare] Preparing lib..."
+	@npm install
+
 clean-proto cp:
 	@echo "[clean-proto] Cleaning proto files..."
 	@rm -rf proto/*.pb.go || true
