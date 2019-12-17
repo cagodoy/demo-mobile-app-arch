@@ -1,6 +1,12 @@
 [submodule "src/users-api"]
 	path = src/users-api
-	url = https://github.com/cagodoy/tenpo-users-api
+	url = git@github.com:cagodoy/tenpo-users-api.git
 [submodule "src/auth-api"]
 	path = src/auth-api
-	url = https://github.com/cagodoy/tenpo-auth-api
+	url = git@github.com:cagodoy/tenpo-auth-api.git
+[submodule "src/restaurants-api"]
+	path = src/restaurants-api
+	url = git@github.com:cagodoy/tenpo-restaurants-api.git
+[submodule "src/gateway-api"]
+	path = src/gateway-api
+	url = git@github.com:cagodoy/tenpo-gateway-api.git
