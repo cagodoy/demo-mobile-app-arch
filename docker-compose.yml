@@ -1,7 +1,9 @@
-version: "3"
+version: '3'
 
 volumes:
   users-postgres-data:
+    driver: local
+  auth-postgres-data:
     driver: local
 
 services:
@@ -9,17 +11,15 @@ services:
   # USERS SERVICE
   #
   users-postgres:
-    container_name: postgres
+    container_name: users-postgres
     image: postgres
     volumes:
       - users-postgres-data:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
   users-api:
     container_name: users-api
-    build: .
+    image: docker.pkg.github.com/cagodoy/tenpo-users-api/tenpo-users-api:0.0.4
     ports:
-      - "5020:5020"
+      - 5020:5020
     environment:
       - POSTGRES_DSN=postgres://postgres:postgres@users-postgres:5432/postgres?sslmode=disable
       - PORT=5020
@@ -27,3 +27,56 @@ services:
       - users-postgres
     links:
       - users-postgres
+
+  #
+  # AUTH SERVICE
+  #
+  auth-postgres:
+    container_name: auth-postgres
+    image: postgres
+    volumes:
+      - auth-postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  auth-api:
+    container_name: auth-api
+    image: docker.pkg.github.com/cagodoy/tenpo-auth-api/tenpo-auth-api:0.0.9
+    ports:
+      - 5010:5010
+    environment:
+      - POSTGRES_DSN=postgres://postgres:postgres@auth-postgres:5432/postgres?sslmode=disable
+      - PORT=5010
+      - USERS_HOST=users-api
+      - USERS_PORT=5020
+      - JWT_SECRET=jwt_very_secret
+    depends_on:
+      - auth-postgres
+    links:
+      - auth-postgres
+
+  #
+  # RESTAURANTS SERVICE
+  #
+  restaurants-api:
+    container_name: restaurants-api
+    image: docker.pkg.github.com/cagodoy/tenpo-restaurants-api/tenpo-restaurants-api:0.0.1
+    ports:
+      - 5030:5030
+    environment:
+      - PORT=5030
+      - API_KEY=AIzaSyAH_cK89vxSSQy3rLjwByCnCUa7ZWR4uqE
+
+  #
+  # GATEWAY SERVICE
+  #
+  gateway-api:
+    container_name: gateway-api
+    image: docker.pkg.github.com/cagodoy/tenpo-gateway-api/tenpo-gateway-api:0.0.1
+    ports:
+      - 5000:5000
+    environment:
+      - PORT=5000
+      - AUTH_HOST=auth-api
+      - AUTH_PORT=5010
+      - RESTAURANTS_HOST=restaurants-api
+      - RESTAURANTS_PORT=5030
