@@ -73,13 +73,13 @@ Find **Protocol Buffers Descriptions** at the [`./lib/proto/demo.proto` file](./
    - `terraform apply out.plan` for apply plan directly azure provider. (Wait 15 minutes approximately)
 7. Check cluster with `kubectl get nodes`.
 
-## Deploy services to Kubernetes Cluster
+## Deploy services to Kubernetes cluster
 
 - Run inside `./infra/kubernetes` the following commands.
   - `kubectl apply -f ingress` for deploy `yaml` ingress files.
   - `kubectl apply -f services` for deploy `yaml` services files.
 
-## Deploy Linkerd Mesh Service to Kubernetes cluster.
+## Deploy Linkerd mesh service to Kubernetes cluster.
 
 - `brew install linkerd`: install linkerd dependency.
 - `linkerd check --pre`: checks to determine if the control plane can be installed on our cluster.
