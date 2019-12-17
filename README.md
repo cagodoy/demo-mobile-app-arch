@@ -19,7 +19,7 @@ The solution is composed of 5 microservices written in various languages. The ma
 [![Architecture of
 microservices](./docs/images/architecture.png)](./docs/images/architecture.png)
 
-Find **Protocol Buffers Descriptions** at the [`./lib/proto` directory](./lib/proto).
+Find **Protocol Buffers Descriptions** at the [`./lib/proto/demo.proto` file](./lib/proto/demo.proto).
 
 | Service                                                                  | Language   | Description                                                                                                                                                      |
 | ------------------------------------------------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -51,7 +51,7 @@ Find **Protocol Buffers Descriptions** at the [`./lib/proto` directory](./lib/pr
 - `make compose`: start docker-compose in local with all services.
 - `make stop`: stop docker-compose.
 
-## Skaffold Commands. (Pre Production)
+## Skaffold Commands (Pre Production)
 
 - `brew install skaffold`: install skaffold dependency.
 - `brew install kubectl`: install kubectl cli.
@@ -73,15 +73,21 @@ Find **Protocol Buffers Descriptions** at the [`./lib/proto` directory](./lib/pr
    - `terraform apply out.plan` for apply plan directly azure provider. (Wait 15 minutes approximately)
 7. Check cluster with `kubectl get nodes`.
 
-## Deploy to Kubernetes Cluster
+## Deploy services to Kubernetes Cluster
 
 - Run inside `./infra/kubernetes` the following commands.
   - `kubectl apply -f ingress` for deploy `yaml` ingress files.
   - `kubectl apply -f services` for deploy `yaml` services files.
 
-## Deploy Linkerd Mesh Service
+## Deploy Linkerd Mesh Service to Kubernetes cluster.
 
-- In progress...
+- `brew install linkerd`: install linkerd dependency.
+- `linkerd check --pre`: checks to determine if the control plane can be installed on our cluster.
+- `linkerd install | kubectl apply -f -`: install Linkerd to cluster.
+- `kubectl get svc/pod --namespace linkerd --output wide`: confirm that the svc/pod resources are created.
+- `linkerd check`: check cluster before Linkerd installation.
+- `kubectl get deploy -o yaml | linkerd inject - | kubectl apply -f -`: inject all the deployments in the default namespace.
+- `linkerd dashboard`: open linkerd web dashboard.
 
 ## TODO
 
