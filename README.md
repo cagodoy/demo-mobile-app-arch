@@ -21,15 +21,15 @@ microservices](./docs/images/architecture.png)](./docs/images/architecture.png)
 
 Find **Protocol Buffers Descriptions** at the [`./lib/proto` directory](./lib/proto).
 
-| Service                                      | Language   | Description                                                                                                                                                      |
-| -------------------------------------------- | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Mobile App](./src/mobile-app)               | Javascript | Mobile application with login, signup, search and history screens                                                                                                |
-| [Gateway Service](./src/gateway-api)         | Typescript | service that acts as a 'data aggregation layer' through GraphQL. Through it you can access the resources provided by the back-end microservices.                 |
-| [Users Service](./src/users-api)             | Golang     | Microservice implemented in Golang that stores user information into postgres DB.                                                                                |
-| [Auth Service](./src/auth-api)               | Golang     | Microservice implemented in Typecript that allows authenticating access to the backend through a JWT token. On the other hand, it manages user signup and login. |
-| [Restaurants Service](./src/restaurants-api) | Golang     | Microservice implemented in Golang that get nearby restaurants from Google Places API.                                                                           |
-| [History Service](./src/restaurants-api)     | Golang     | The microservice implemented in Golang saves the history associated with searches performed in the restaurant service.                                           |
-| [NATS Server](https://hub.docker.com/_/nats) | -          | NATS is an open-source, high-performance, cloud native messaging system.                                                                                         |
+| Service                                                                  | Language   | Description                                                                                                                                                      |
+| ------------------------------------------------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Mobile App](./src/mobile-app)                                           | Javascript | Mobile application with login, signup, search and history screens.                                                                                               |
+| [Gateway Service](https://github.com/cagodoy/tenpo-gateway-api/)         | Typescript | service that acts as a 'data aggregation layer' through GraphQL. Through it you can access the resources provided by the back-end microservices.                 |
+| [Users Service](https://github.com/cagodoy/tenpo-users-api/)             | Golang     | Microservice implemented in Golang that stores user information into postgres DB.                                                                                |
+| [Auth Service](https://github.com/cagodoy/tenpo-auth-api/)               | Golang     | Microservice implemented in Typecript that allows authenticating access to the backend through a JWT token. On the other hand, it manages user signup and login. |
+| [Restaurants Service](https://github.com/cagodoy/tenpo-restaurants-api/) | Golang     | Microservice implemented in Golang that get nearby restaurants from Google Places API.                                                                           |
+| [History Service](https://github.com/cagodoy/tenpo-history-api/)         | Golang     | The microservice implemented in Golang saves the history associated with searches performed in the restaurant service.                                           |
+| [NATS Server](https://hub.docker.com/_/nats)                             | -          | NATS is an open-source, high-performance, cloud native messaging system.                                                                                         |
 
 ## Production links
 
