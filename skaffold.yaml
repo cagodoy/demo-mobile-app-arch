@@ -1,0 +1,49 @@
+apiVersion: skaffold/v1
+kind: Config
+metadata:
+  name: tenpo-challenge
+build:
+  artifacts:
+    - image: cagodoy/tenpo-gateway-api
+      context: src/gateway-api
+    - image: cagodoy/tenpo-auth-api
+      context: src/auth-api
+    - image: cagodoy/tenpo-users-api
+      context: src/users-api
+    - image: cagodoy/tenpo-restaurants-api
+      context: src/restaurants-api
+    - image: cagodoy/tenpo-history-api
+      context: src/history-api
+deploy:
+  kubectl:
+    manifests:
+      - infra/services/gateway-api.yaml
+      - infra/services/auth-api.yaml
+      - infra/services/auth-postgres.yaml
+      - infra/services/restaurants-api.yaml
+      - infra/services/restaurants-postgres.yaml
+      - infra/services/users-api.yaml
+      - infra/services/users-postgres.yaml
+      - infra/services/history-api.yaml
+      - infra/services/history-postgres.yaml
+portForward:
+  - resourceType: deployment
+    resourceName: gateway-api
+    port: 5000
+    localPort: 5000
+  - resourceType: deployment
+    resourceName: auth-api
+    port: 5010
+    localPort: 5010
+  - resourceType: deployment
+    resourceName: users-api
+    port: 5020
+    localPort: 5020
+  - resourceType: deployment
+    resourceName: restaurants-api
+    port: 5030
+    localPort: 5030
+  - resourceType: deployment
+    resourceName: history-api
+    port: 5040
+    localPort: 5040
