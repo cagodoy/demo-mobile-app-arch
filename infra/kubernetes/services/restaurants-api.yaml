@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: restaurants-api
+  labels:
+    app: restaurants-api
+    service: restaurants-api
+spec:
+  ports:
+    - port: 5030
+      name: grpc
+  selector:
+    app: restaurants-api
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tenpo-restaurants-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: restaurants-api
+  labels:
+    app: restaurants-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurants-api
+  template:
+    metadata:
+      labels:
+        app: restaurants-api
+    spec:
+      nodeSelector:
+        service: general
+      serviceAccountName: tenpo-restaurants-api
+      containers:
+        - name: restaurants-api
+          image: cagodoy/tenpo-restaurants-api:0.0.1
+          ports:
+            - containerPort: 5030
+          env:
+            - name: API_KEY
+              value: AIzaSyAH_cK89vxSSQy3rLjwByCnCUa7ZWR4uqE
+            - name: PORT
+              value: '5030'
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
+      volumes:
+        - name: restaurants-postgresdb
+          persistentVolumeClaim:
+            claimName: restaurants-postgres-pv-claim

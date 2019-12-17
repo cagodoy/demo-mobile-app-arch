@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: auth-api
+  labels:
+    app: auth-api
+    service: auth-api
+spec:
+  ports:
+    - port: 5010
+      name: grpc
+  selector:
+    app: auth-api
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tenpo-auth-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-api
+  labels:
+    app: auth-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth-api
+  template:
+    metadata:
+      labels:
+        app: auth-api
+    spec:
+      nodeSelector:
+        service: general
+      serviceAccountName: tenpo-auth-api
+      containers:
+        - name: auth-api
+          image: cagodoy/tenpo-auth-api:0.0.9
+          ports:
+            - containerPort: 5010
+          env:
+            - name: POSTGRES_DSN
+              value: postgres://postgres:postgres@auth-postgres:5432/postgres?sslmode=disable
+            - name: PORT
+              value: '5010'
+            - name: USERS_HOST
+              value: users-api
+            - name: USERS_PORT
+              value: '5020'
+            - name: JWT_SECRET
+              value: jwt_very_secret
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
+      volumes:
+        - name: auth-postgresdb
+          persistentVolumeClaim:
+            claimName: auth-postgres-pv-claim

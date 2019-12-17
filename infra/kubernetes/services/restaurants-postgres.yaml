@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: restaurants-postgres-config
+  labels:
+    app: restaurants-postgres
+data:
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: restaurants-postgres-pv-volume
+  labels:
+    type: local
+    app: restaurants-postgres
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: '/mnt/data/restaurants'
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: restaurants-postgres-pv-claim
+  labels:
+    app: restaurants-postgres
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: restaurants-postgres
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: restaurants-postgres
+    spec:
+      nodeSelector:
+        service: databases
+      containers:
+        - name: restaurants-postgres
+          image: postgres:10.4
+          imagePullPolicy: 'IfNotPresent'
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: restaurants-postgres-config
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: restaurants-postgresdb
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
+      volumes:
+        - name: restaurants-postgresdb
+          persistentVolumeClaim:
+            claimName: restaurants-postgres-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: restaurants-postgres
+  labels:
+    app: restaurants-postgres
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: restaurants-postgres

@@ -1,0 +1,90 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: users-postgres-config
+  labels:
+    app: users-postgres
+data:
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+---
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: users-postgres-pv-volume
+  labels:
+    type: local
+    app: users-postgres
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: '/mnt/data/users'
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: users-postgres-pv-claim
+  labels:
+    app: users-postgres
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: users-postgres
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: users-postgres
+    spec:
+      nodeSelector:
+        service: databases
+      containers:
+        - name: users-postgres
+          image: postgres:10.4
+          imagePullPolicy: 'IfNotPresent'
+          ports:
+            - containerPort: 5432
+          envFrom:
+            - configMapRef:
+                name: users-postgres-config
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: users-postgresdb
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
+      volumes:
+        - name: users-postgresdb
+          persistentVolumeClaim:
+            claimName: users-postgres-pv-claim
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-postgres
+  labels:
+    app: users-postgres
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: users-postgres

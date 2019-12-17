@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: users-api
+  labels:
+    app: users-api
+    service: users-api
+spec:
+  ports:
+    - port: 5020
+      name: grpc
+  selector:
+    app: users-api
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tenpo-users-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: users-api
+  labels:
+    app: users-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: users-api
+  template:
+    metadata:
+      labels:
+        app: users-api
+    spec:
+      nodeSelector:
+        service: general
+      serviceAccountName: tenpo-users-api
+      containers:
+        - name: users-api
+          image: cagodoy/tenpo-users-api:0.0.4
+          ports:
+            - containerPort: 5020
+          env:
+            - name: POSTGRES_DSN
+              value: postgres://postgres:postgres@users-postgres:5432/postgres?sslmode=disable
+            - name: PORT
+              value: '5020'
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
+      volumes:
+        - name: users-postgresdb
+          persistentVolumeClaim:
+            claimName: users-postgres-pv-claim

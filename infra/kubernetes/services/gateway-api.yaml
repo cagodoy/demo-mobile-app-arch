@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gateway-api
+  labels:
+    app: gateway-api
+    service: gateway-api
+spec:
+  ports:
+    - port: 5000
+      name: http
+  selector:
+    app: gateway-api
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tenpo-gateway-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-api
+  labels:
+    app: gateway-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-api
+  template:
+    metadata:
+      labels:
+        app: gateway-api
+    spec:
+      nodeSelector:
+        service: general
+      serviceAccountName: tenpo-gateway-api
+      containers:
+        - name: gateway-api
+          image: cagodoy/tenpo-gateway-api:0.0.1
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PORT
+              value: '5000'
+            - name: AUTH_HOST
+              value: auth-api
+            - name: AUTH_PORT
+              value: '5010'
+            - name: RESTAURANTS_HOST
+              value: restaurants-api
+            - name: RESTAURANTS_PORT
+              value: '5030'
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
