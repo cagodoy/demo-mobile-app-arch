@@ -10,3 +10,6 @@
 [submodule "src/gateway-api"]
 	path = src/gateway-api
 	url = git@github.com:cagodoy/tenpo-gateway-api.git
+[submodule "src/history-api"]
+	path = src/history-api
+	url = git@github.com:cagodoy/tenpo-history-api.git
