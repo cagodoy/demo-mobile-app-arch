@@ -14,8 +14,8 @@ message Error {
 message Empty {}
 
 message Coord {
-  string latitude = 1;
-  string longitude = 2;
+  double latitude = 1;
+  double longitude = 2;
 }
 
 // ------------------- Users -------------------
@@ -183,17 +183,12 @@ message Restaurant {
 
 message RestaurantListByCoordRequest {
   Coord coord = 1;
-  string page_token = 2;
-}
-
-message MetaRestaurantListByCoord {
-  string page_token = 1;
+  string user_id = 3;
 }
 
 message RestaurantListByCoordResponse {
   repeated Restaurant data = 1;
-  MetaRestaurantListByCoord meta = 2;
-  Error error = 3;
+  Error error = 2;
 }
 
 // ------------------- History ------------------- 
