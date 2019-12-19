@@ -38,7 +38,7 @@ spec:
       serviceAccountName: tenpo-users-api
       containers:
         - name: users-api
-          image: cagodoy/tenpo-users-api:0.0.4
+          image: cagodoy/tenpo-users-api:0.0.5
           ports:
             - containerPort: 5020
           env:

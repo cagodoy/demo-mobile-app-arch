@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: restaurants-postgres-config
+  name: history-postgres-config
   labels:
-    app: restaurants-postgres
+    app: history-postgres
 data:
   POSTGRES_DB: postgres
   POSTGRES_USER: postgres
@@ -12,10 +12,10 @@ data:
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: restaurants-postgres-pv-volume
+  name: history-postgres-pv-volume
   labels:
     type: local
-    app: restaurants-postgres
+    app: history-postgres
 spec:
   storageClassName: manual
   capacity:
@@ -23,14 +23,14 @@ spec:
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: '/mnt/data/restaurants'
+    path: '/mnt/data/history'
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: restaurants-postgres-pv-claim
+  name: history-postgres-pv-claim
   labels:
-    app: restaurants-postgres
+    app: history-postgres
 spec:
   storageClassName: manual
   accessModes:
@@ -42,28 +42,28 @@ spec:
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  name: restaurants-postgres
+  name: history-postgres
 spec:
   replicas: 1
   template:
     metadata:
       labels:
-        app: restaurants-postgres
+        app: history-postgres
     spec:
       nodeSelector:
         service: databases
       containers:
-        - name: restaurants-postgres
+        - name: history-postgres
           image: postgres:10.4
           imagePullPolicy: 'IfNotPresent'
           ports:
             - containerPort: 5432
           envFrom:
             - configMapRef:
-                name: restaurants-postgres-config
+                name: history-postgres-config
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: restaurants-postgresdb
+              name: history-postgresdb
           resources:
             requests:
               cpu: 100m
@@ -72,19 +72,19 @@ spec:
               cpu: 200m
               memory: 512Mi
       volumes:
-        - name: restaurants-postgresdb
+        - name: history-postgresdb
           persistentVolumeClaim:
-            claimName: restaurants-postgres-pv-claim
+            claimName: history-postgres-pv-claim
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: restaurants-postgres
+  name: history-postgres
   labels:
-    app: restaurants-postgres
+    app: history-postgres
 spec:
   type: ClusterIP
   ports:
     - port: 5432
   selector:
-    app: restaurants-postgres
+    app: history-postgres

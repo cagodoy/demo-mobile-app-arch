@@ -1,51 +1,51 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: restaurants-api
+  name: history-api
   labels:
-    app: restaurants-api
-    service: restaurants-api
+    app: history-api
+    service: history-api
 spec:
   ports:
-    - port: 5030
+    - port: 5040
       name: grpc
   selector:
-    app: restaurants-api
+    app: history-api
 ---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: tenpo-restaurants-api
+  name: tenpo-history-api
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: restaurants-api
+  name: history-api
   labels:
-    app: restaurants-api
+    app: history-api
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: restaurants-api
+      app: history-api
   template:
     metadata:
       labels:
-        app: restaurants-api
+        app: history-api
     spec:
       nodeSelector:
         service: general
-      serviceAccountName: tenpo-restaurants-api
+      serviceAccountName: tenpo-history-api
       containers:
-        - name: restaurants-api
-          image: cagodoy/tenpo-restaurants-api:0.0.6
+        - name: history-api
+          image: cagodoy/tenpo-history-api:0.0.4
           ports:
-            - containerPort: 5030
+            - containerPort: 5040
           env:
-            - name: API_KEY
-              value: AIzaSyAH_cK89vxSSQy3rLjwByCnCUa7ZWR4uqE
+            - name: POSTGRES_DSN
+              value: postgres://postgres:postgres@history-postgres:5432/postgres?sslmode=disable
             - name: PORT
-              value: '5030'
+              value: '5040'
             - name: NATS_HOST
               value: nats
             - name: NATS_PORT
@@ -57,3 +57,7 @@ spec:
             limits:
               cpu: 200m
               memory: 512Mi
+      volumes:
+        - name: history-postgresdb
+          persistentVolumeClaim:
+            claimName: history-postgres-pv-claim

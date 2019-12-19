@@ -38,7 +38,7 @@ spec:
       serviceAccountName: tenpo-gateway-api
       containers:
         - name: gateway-api
-          image: cagodoy/tenpo-gateway-api:0.0.1
+          image: cagodoy/tenpo-gateway-api:0.0.3
           ports:
             - containerPort: 5000
           env:
