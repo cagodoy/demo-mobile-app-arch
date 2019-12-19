@@ -38,7 +38,7 @@ spec:
       serviceAccountName: tenpo-auth-api
       containers:
         - name: auth-api
-          image: cagodoy/tenpo-auth-api:0.0.10
+          image: cagodoy/tenpo-auth-api:0.0.11
           ports:
             - containerPort: 5010
           env:
