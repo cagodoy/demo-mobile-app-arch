@@ -119,7 +119,7 @@ class Auth implements IAuth {
       return Promise.reject(new Error('invalid password param'));
     }
 
-    return protoPromisify(this.client, 'userGetByEmail')({ email, password });
+    return protoPromisify(this.client, 'login')({ email, password });
   }
 
   /**
