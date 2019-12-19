@@ -50,7 +50,7 @@ services:
       - PORT=5010
       - USERS_HOST=users-api
       - USERS_PORT=5020
-      - JWT_SECRET=jwt_very_secret
+      - JWT_SECRET=<jwt_secret>
     depends_on:
       - auth-postgres
     links:
@@ -61,14 +61,14 @@ services:
   #
   restaurants-api:
     container_name: restaurants-api
-    image: cagodoy/tenpo-restaurants-api:0.0.6
+    image: cagodoy/tenpo-restaurants-api:0.0.7
     ports:
       - 5030:5030
     environment:
       - PORT=5030
       - NATS_HOST=nats
       - NATS_PORT=4222
-      - API_KEY=AIzaSyAH_cK89vxSSQy3rLjwByCnCUa7ZWR4uqE
+      - API_KEY=<api_key>
     depends_on:
       - nats
     links:
