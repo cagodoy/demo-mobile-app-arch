@@ -3,14 +3,14 @@ import * as protoLoader from '@grpc/proto-loader';
 import protoPromisify from '../../promisify';
 
 // types
-import { TErrorResponse } from '../';
+import { TErrorResponse, TError } from '../';
 
 export type TCoord = {
   latitude: string;
   longitude: string;
 };
 
-// define auth message
+// define restaurant message
 export type TRestaurant = {
   id: string;
   name: string;
@@ -29,7 +29,6 @@ export type TMetaPageToken = {
 export type TRestaurantResponse = TErrorResponse & {
   data: TRestaurant[];
   meta: TMetaPageToken;
-  error: Error;
 };
 
 // IRestaurant define class ...
@@ -83,7 +82,7 @@ class Restaurant implements IRestaurant {
    * }
    *
    */
-  listByCoord(coord: TCoord, pageToken: string = ''): Promise<TRestaurantResponse> {
+  listByCoord(coord: TCoord, userId: string): Promise<TRestaurantResponse> {
     if (coord === undefined) {
       return Promise.reject(new Error('invalid coord param'));
     }
@@ -92,7 +91,11 @@ class Restaurant implements IRestaurant {
       return Promise.reject(new Error('invalid coord.latitude param'));
     }
 
-    return protoPromisify(this.client, 'listByCoord')({ coord, pageToken });
+    if (userId === undefined) {
+      return Promise.reject(new Error('invalid userId'));
+    }
+
+    return protoPromisify(this.client, 'listByCoord')({ coord, userId });
   }
 }
 

@@ -7,7 +7,7 @@ type TError = {
 // define classic grpc response
 type TErrorResponse = {
   error: TError | null;
-  meta: any;
+  meta?: any;
 };
 
 export { TError, TErrorResponse };

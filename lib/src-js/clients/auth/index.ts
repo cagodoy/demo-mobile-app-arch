@@ -16,7 +16,15 @@ export type TAuthResponse = TErrorResponse & {
 
 // TAuthVerifyTokenResponse ...
 export type TAuthVerifyTokenResponse = TErrorResponse & {
+  data: TAuthVerifyToken;
   valid: boolean;
+};
+
+// TAuthVerifyToken
+export type TAuthVerifyToken = {
+  iat: number;
+  exp: number;
+  userId: string;
 };
 
 // define auth message
@@ -30,7 +38,7 @@ export type TAuth = {
 // IAuth define class ...
 interface IAuth {
   config(opts: { host: string; port: string }): void;
-  verifyToken(token: string): Promise<boolean>;
+  verifyToken(token: string): Promise<TAuthVerifyTokenResponse>;
   login(email: string, password: string): Promise<TAuthResponse>;
   signUp(user: TUser): Promise<TAuthResponse>;
 
@@ -80,7 +88,7 @@ class Auth implements IAuth {
    * }
    *
    */
-  verifyToken(token: string): Promise<boolean> {
+  verifyToken(token: string): Promise<TAuthVerifyTokenResponse> {
     if (token === undefined) {
       return Promise.reject(new Error('invalid token param'));
     }
