@@ -5,7 +5,7 @@ metadata:
   name: web-ingress-auth
   namespace: linkerd
 data:
-  auth: YWRtaW46JGFwcjEkbjdDdTZnSGwkRTQ3b2dmN0NPOE5SWWpFakJPa1dNLgoK
+  auth: <AUTH>
 ---
 apiVersion: extensions/v1beta1
 kind: Ingress

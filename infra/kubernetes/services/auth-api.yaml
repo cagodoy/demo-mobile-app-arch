@@ -51,7 +51,7 @@ spec:
             - name: USERS_PORT
               value: '5020'
             - name: JWT_SECRET
-              value: jwt_very_secret
+              value: <JWT_SECRET>
           resources:
             requests:
               cpu: 100m

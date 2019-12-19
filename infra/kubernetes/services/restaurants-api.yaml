@@ -38,12 +38,12 @@ spec:
       serviceAccountName: tenpo-restaurants-api
       containers:
         - name: restaurants-api
-          image: cagodoy/tenpo-restaurants-api:0.0.6
+          image: cagodoy/tenpo-restaurants-api:0.0.7
           ports:
             - containerPort: 5030
           env:
             - name: API_KEY
-              value: AIzaSyAH_cK89vxSSQy3rLjwByCnCUa7ZWR4uqE
+              value: <API_KEY>
             - name: PORT
               value: '5030'
             - name: NATS_HOST
