@@ -10,7 +10,7 @@ It is possible to use [Skaffold](https://skaffold.dev/) to run a cluster through
 
 ## Screenshots
 
-In progress...
+See **Architecture** and **Application** screenshots at the [`./docs/images` file](./docs/images).
 
 ## Service Architecture
 
@@ -34,7 +34,7 @@ Find **Protocol Buffers Descriptions** at the [`./lib/proto/demo.proto` file](./
 ## Production links
 
 - GraphQL Backend: [http://tenpo-aks-ingress.centralus.cloudapp.azure.com/graphql](http:/tenpo-aks-ingress.centralus.cloudapp.azure.com/graphql)
-- Mobile: [https://expo.io/@cagodoy/tenpo-challenge-mobile](https://expo.io/@cagodoy/tenpo-challenge-mobile) (in progress...)
+- Mobile: [https://expo.io/@cagodoy/tenpo-mobile-app](https://expo.io/@cagodoy/tenpo-mobile-app)
 - Linkerd Dashboard: [http://localhost:50750](http://localhost:50750)
 
 ## Prepare Project
