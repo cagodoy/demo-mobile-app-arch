@@ -50,7 +50,7 @@ services:
       - PORT=5010
       - USERS_HOST=users-api
       - USERS_PORT=5020
-      - JWT_SECRET=<jwt_secret>
+      - JWT_SECRET=jwt_very_secret
     depends_on:
       - auth-postgres
     links:
@@ -68,7 +68,7 @@ services:
       - PORT=5030
       - NATS_HOST=nats
       - NATS_PORT=4222
-      - API_KEY=<api_key>
+      - API_KEY=AIzaSyAH_cK89vxSSQy3rLjwByCnCUa7ZWR4uqE
     depends_on:
       - nats
     links:

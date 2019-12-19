@@ -13,6 +13,3 @@
 [submodule "src/history-api"]
 	path = src/history-api
 	url = git@github.com:cagodoy/tenpo-history-api.git
-[submodule "src/mobile-app"]
-	path = src/mobile-app
-	url = git@github.com:cagodoy/tenpo-mobile-app.git
