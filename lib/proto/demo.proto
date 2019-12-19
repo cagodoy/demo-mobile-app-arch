@@ -111,6 +111,12 @@ message Token {
   string token = 1;
 }
 
+message AuthVerifyTokenData {
+  int64 iat = 1;
+  int64 exp = 2;
+  string user_id = 3;
+}
+
 message AuthVerifyTokenRequest {
   string token = 1;
 }
@@ -118,6 +124,7 @@ message AuthVerifyTokenRequest {
 message AuthVerifyTokenResponse {
   bool valid = 1;
   Error error = 2;
+  AuthVerifyTokenData data = 3;
 }
 
 message AuthLoginRequest {
