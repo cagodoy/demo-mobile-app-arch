@@ -10,7 +10,7 @@ It is possible to use [Skaffold](https://skaffold.dev/) to run a cluster through
 
 ## Screenshots
 
-See **Architecture** and **Application** screenshots at the [`./docs/images` file](./docs/images).
+See **Architecture** and **Application** screenshots at the [`./docs/images`](./docs/images) folder.
 
 ## Service Architecture
 
@@ -19,7 +19,7 @@ The solution is composed of 5 microservices written in various languages. The ma
 [![Architecture of
 microservices](./docs/images/architecture.png)](./docs/images/architecture.png)
 
-Find **Protocol Buffers Descriptions** at the [`./lib/proto/demo.proto` file](./lib/proto/demo.proto).
+Find **Protocol Buffers Descriptions** at the [`./lib/proto/demo.proto`](./lib/proto/demo.proto) file.
 
 | Service                                                                  | Language   | Description                                                                                                                                                      |
 | ------------------------------------------------------------------------ | ---------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
