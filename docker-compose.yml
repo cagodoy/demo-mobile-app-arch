@@ -19,7 +19,7 @@ services:
       - users-postgres-data:/var/lib/postgresql/data
   users-api:
     container_name: users-api
-    image: cagodoy/tenpo-users-api:0.0.4
+    image: cagodoy/tenpo-users-api:0.0.5
     ports:
       - 5020:5020
     environment:
@@ -40,7 +40,7 @@ services:
       - auth-postgres-data:/var/lib/postgresql/data
   auth-api:
     container_name: auth-api
-    image: cagodoy/tenpo-auth-api:0.0.9
+    image: cagodoy/tenpo-auth-api:0.0.10
     ports:
       - 5010:5010
     environment:
@@ -59,15 +59,14 @@ services:
   #
   restaurants-api:
     container_name: restaurants-api
-    image: cagodoy/tenpo-restaurants-api:0.0.2
+    image: cagodoy/tenpo-restaurants-api:0.0.6
     ports:
       - 5030:5030
     environment:
       - PORT=5030
       - NATS_HOST=nats
       - NATS_PORT=4222
-    env_file:
-      - .env
+      - API_KEY=AIzaSyAH_cK89vxSSQy3rLjwByCnCUa7ZWR4uqE
     depends_on:
       - nats
     links:
@@ -81,11 +80,9 @@ services:
     image: postgres
     volumes:
       - history-postgres-data:/var/lib/postgresql/data
-    ports:
-      - 5432:5432
   history-api:
     container_name: history-api
-    image: cagodoy/tenpo-history-api:0.0.2
+    image: cagodoy/tenpo-history-api:0.0.4
     ports:
       - 5040:5040
     environment:
@@ -105,7 +102,7 @@ services:
   #
   gateway-api:
     container_name: gateway-api
-    image: cagodoy/tenpo-gateway-api:0.0.1
+    image: cagodoy/tenpo-gateway-api:0.0.4
     ports:
       - 5000:5000
     environment:
