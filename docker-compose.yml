@@ -102,7 +102,7 @@ services:
   #
   gateway-api:
     container_name: gateway-api
-    image: cagodoy/tenpo-gateway-api:0.0.4
+    image: cagodoy/tenpo-gateway-api:0.0.3
     ports:
       - 5000:5000
     environment:

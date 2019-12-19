@@ -52,6 +52,10 @@ spec:
               value: restaurants-api
             - name: RESTAURANTS_PORT
               value: '5030'
+            - name: HISTORY_HOST
+              value: history-api
+            - name: HISTORY_PORT
+              value: '5040'
           resources:
             requests:
               cpu: 100m
