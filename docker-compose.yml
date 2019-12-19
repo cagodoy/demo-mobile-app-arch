@@ -111,6 +111,8 @@ services:
       - AUTH_PORT=5010
       - RESTAURANTS_HOST=restaurants-api
       - RESTAURANTS_PORT=5030
+      - HISTORY_HOST=history-api
+      - HISTORY_PORT=5040
 
   #
   # NATS SERVICE
