@@ -33,9 +33,9 @@ Find **Protocol Buffers Descriptions** at the [`./lib/proto/demo.proto` file](./
 
 ## Production links
 
-- GraphQL Backend: [http://tenpo-aks-ingress.centralus.cloudapp.azure.com/graphql](http:/tenpo-aks-ingress.centralus.cloudapp.azure.com/graphql) (in progress...)
+- GraphQL Backend: [http://tenpo-aks-ingress.centralus.cloudapp.azure.com/graphql](http:/tenpo-aks-ingress.centralus.cloudapp.azure.com/graphql)
 - Mobile: [https://expo.io/@cagodoy/tenpo-challenge-mobile](https://expo.io/@cagodoy/tenpo-challenge-mobile) (in progress...)
-- Linkerd Dashboard: [http://...](http://...) (in progress...)
+- Linkerd Dashboard: [http://localhost:50750](http://localhost:50750)
 
 ## Prepare Project
 
@@ -72,6 +72,7 @@ Find **Protocol Buffers Descriptions** at the [`./lib/proto/demo.proto` file](./
    - `terraform plan -out out.plan` for generate tf plan file. (Wait 3 minutes approximately)
    - `terraform apply out.plan` for apply plan directly azure provider. (Wait 15 minutes approximately)
 7. Check cluster with `kubectl get nodes`.
+8. Configure Static Ip to use with HTTPS. [[Link]](https://docs.microsoft.com/en-us/azure/aks/ingress-static-ip)
 
 ## Deploy services to Kubernetes cluster
 
@@ -95,7 +96,3 @@ Find **Protocol Buffers Descriptions** at the [`./lib/proto/demo.proto` file](./
 - [ ] Integration test for `auth` service for check GraphQL responses.
 - [ ] Integration test for `restaurants` service for check GraphQL responses.
 - [ ] Integration test for `history` service for check GraphQL responses.
-- [ ] E2E test for `Login` mobile app screeen.
-- [ ] E2E test for `Signup` mobile app screeen.
-- [ ] E2E test for `Search` mobile app screeen.
-- [ ] E2E test for `History` mobile app screeen.
