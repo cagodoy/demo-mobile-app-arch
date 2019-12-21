@@ -40,11 +40,8 @@ Find **Protocol Buffers Descriptions** at the [`./lib/proto/demo.proto`](./lib/p
 ## Prepare Project
 
 - Clone repo: `git clone git@github.com:cagodoy/tenpo-challenge.git`.
-- Prepare lib folder: inside [`./lib`](./lib) directory folder.
-  - Run `make prepare`: Install NodeJS dependencies used by js clients.
-  - Run `make typescript`: Transpile `auth`, `users`, `restaurants`, `history` typescript clients files.
 - Initialize sub modules: `git submodule update --init`.
-  - Run `make prepare` inside `auth-api` folder.
+- Prepare all repos with `make prepare` command.
 
 ## Docker Commands (Development)
 
