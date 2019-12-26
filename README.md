@@ -40,7 +40,6 @@ Find **Protocol Buffers Descriptions** at the [`./lib/proto/demo.proto`](./lib/p
 ## Prepare Project
 
 - Clone repo: `git clone git@github.com:cagodoy/tenpo-challenge.git`.
-- Initialize sub modules: `git submodule update --init`.
 - Prepare all repos with `make prepare` command.
 
 ## Docker Commands (Development)
